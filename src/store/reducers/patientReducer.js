@@ -1,8 +1,29 @@
 const initState = {
   patients: [
-    { id: "1", name: "Michael", domain: "patient" },
-    { id: "2", name: "Dwight", domain: "patient" },
-    { id: "3", name: "James", domain: "patient" }
+    {
+      id: "1",
+      name: "Michael",
+      domain: "patient",
+      email: "Michael@test.com",
+      age: 20,
+      gender: "mail"
+    },
+    {
+      id: "2",
+      name: "Dwight",
+      domain: "patient",
+      email: "Dwight@test.com",
+      age: 20,
+      gender: "mail"
+    },
+    {
+      id: "3",
+      name: "James",
+      domain: "patient",
+      email: "James@test.com",
+      age: 20,
+      gender: "mail"
+    }
   ]
 };
 

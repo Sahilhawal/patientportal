@@ -26,7 +26,6 @@ const validateMessages = {
 const CreatePatient = props => {
   const [form] = Form.useForm();
   const onFinish = values => {
-    console.log(values);
     props.add_patient(values);
   };
 
@@ -61,6 +60,13 @@ const CreatePatient = props => {
               required: true
             }
           ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={["user", "email"]}
+          label="Email"
+          rules={[{ type: "email" }]}
         >
           <Input />
         </Form.Item>
@@ -115,7 +121,6 @@ const mapPropsToState = dispatch => {
   return {
     add_patient: data => {
       data.user.id = 4;
-      console.log(data);
       dispatch({ type: "ADD_PATIENT", data: data });
     }
   };

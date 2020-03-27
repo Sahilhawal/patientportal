@@ -5,6 +5,9 @@ import Navbar from "./components/layout/Navbar";
 import SignIn from "./components/auth/SignIn";
 import CreatePatient from "./components/doctor/CreatePatient";
 import PatientList from "./components/doctor/PatientList";
+import MyProfile from "./components/patient/MyProfile";
+import PrivateRoute from "./components/auth/PrivateRoute";
+import Login from "./components/auth/SignIn";
 
 function App() {
   return (
@@ -13,10 +16,12 @@ function App() {
         <Navbar />
       </div>
       <Switch>
-        <Route exact path="/" component={SignIn} />
+        <Route exact path="/" component={Login} />
+        <Route path="/login" component={Login} />
         <Route path="/signin" component={SignIn} />
         <Route path="/create" component={CreatePatient} />
-        <Route path="/patientlist" component={PatientList} />
+        <PrivateRoute path="/patientlist" component={PatientList} />
+        <Route path="/myprofile/:id" component={MyProfile} />
       </Switch>
     </BrowserRouter>
   );
