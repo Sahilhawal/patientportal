@@ -8,11 +8,11 @@ import {
 } from "react-router-dom";
 import userAuth from "./user_auth";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      userAuth.isAuthenticated === true && userAuth.domain === "doctor" ? (
+      auth.isLoggedIn === true && auth.domain === "doctor" ? (
         <Component {...props} />
       ) : (
         <Redirect

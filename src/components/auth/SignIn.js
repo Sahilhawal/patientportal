@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert, notification } from "antd";
 import {
   BrowserRouter as Router,
   Route,
@@ -11,10 +11,36 @@ import {
 import userAuth from "./user_auth";
 import PatientList from "../doctor/PatientList";
 
+const openNotification = (title, msg) => {
+  notification.open({
+    message: title,
+    description: msg,
+    onClick: () => {
+      console.log("Notification Clicked!");
+    }
+  });
+};
+
 const auth_data = {
   users: [
-    { email: "sahil@test.com", password: "1234", domain: "doctor", id: "1" },
-    { email: "patient@test.com", password: "1234", domain: "patient", id: "2" }
+    {
+      id: "10",
+      password: "1234",
+      domain: "doctor",
+      email: "Michael@office.com"
+    },
+    {
+      id: "1",
+      password: "1234",
+      domain: "patient",
+      email: "dwight@office.com"
+    },
+    {
+      id: "2",
+      password: "1234",
+      domain: "patient",
+      email: "James@office.com"
+    }
   ]
 };
 const layout = {
@@ -39,13 +65,19 @@ const onFinishFailed = errorInfo => {
 class Login extends React.Component {
   state = {
     redirectToReferrer: false,
-    domain: ""
+    domain: "",
+    id: ""
   };
 
   login = values => {
     var user_logging_in = auth_data.users.find(user => {
       return user.email === values.username;
     });
+    if (!user_logging_in) {
+      openNotification("Error", "User does not exist!");
+      //alert("User does not exist!");
+      return false;
+    }
     if (user_logging_in.password === values.password) {
       userAuth.authenticate(user_logging_in, () => {
         this.setState(
@@ -57,7 +89,7 @@ class Login extends React.Component {
           this.props.user_login(user_logging_in)
         );
       });
-    }
+    } else openNotification("Error", "Invalid Credentials");
   };
   render() {
     const { redirectToReferrer, domain, id } = this.state;

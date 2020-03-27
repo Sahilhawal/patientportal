@@ -7,7 +7,6 @@ import userAuth from "../auth/user_auth";
 const { Header } = Layout;
 
 const Navbar = props => {
-  console.log("navbar", userAuth.isAuthenticated);
   console.log(props);
   const handlieSignOut = () => {
     console.log("sign out", props);
@@ -23,6 +22,12 @@ const Navbar = props => {
           {props.auth.domain === "doctor" ? (
             <Menu.Item key="3">
               <Link to="/create">Create Patient</Link>
+            </Menu.Item>
+          ) : null}
+
+          {props.auth.domain === "doctor" ? (
+            <Menu.Item key="4">
+              <Link to="/patientlist">Patient List</Link>
             </Menu.Item>
           ) : null}
 

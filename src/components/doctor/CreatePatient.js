@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
+import moment from "moment";
 
 const { Option } = Select;
 
@@ -22,11 +23,17 @@ const validateMessages = {
     range: "Must be between"
   }
 };
+const dateFormat = "YYYY/MM/DD";
 
 const CreatePatient = props => {
   const [form] = Form.useForm();
   const onFinish = values => {
+    var dob = values.user.DOB;
+    values.user.date_of_birth = values.user.DOB.format("LL");
+    values.user.date_of_last_visit = values.user.DOLV.format("LL");
+    console.log(values);
     props.add_patient(values);
+    props.history.push("/patientlist");
   };
 
   const onGenderChange = value => {
@@ -43,6 +50,9 @@ const CreatePatient = props => {
     }
   };
 
+  const config = {
+    rules: [{ type: "object", required: true, message: "Please select time!" }]
+  };
   return (
     <div className="container">
       <h1>Create Patient</h1>
@@ -98,14 +108,14 @@ const CreatePatient = props => {
             <Option value="other">other</Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Date of Birth">
-          <DatePicker />
+        <Form.Item name={["user", "DOB"]} label="Date of Birth" {...config}>
+          <DatePicker format={dateFormat} />
         </Form.Item>
         <Form.Item name={["user", "address"]} label="Address">
           <Input.TextArea />
         </Form.Item>
-        <Form.Item label="Last Visited">
-          <DatePicker />
+        <Form.Item name={["user", "DOLV"]} label="Last Visited" {...config}>
+          <DatePicker format={dateFormat} />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">

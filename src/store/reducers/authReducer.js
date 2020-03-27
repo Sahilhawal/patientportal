@@ -1,6 +1,7 @@
 const initialState = {
   isLoggedIn: false,
-  domain: ""
+  domain: "",
+  id: ""
 };
 
 const authReducer = (state = initialState, action) => {
@@ -10,14 +11,16 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        domain: action.data.domain
+        domain: action.data.domain,
+        id: action.data.id
       };
     case "USER_LOGOUT":
       console.log("USER_LOGOUT", action);
       return {
         ...state,
         isLoggedIn: false,
-        userName: ""
+        domain: "",
+        id: ""
       };
     default:
       return state;
