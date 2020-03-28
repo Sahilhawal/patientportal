@@ -103,6 +103,9 @@ const CreatePatient = props => {
         <Form.Item name="symptoms" label="Symptoms">
           <Input.TextArea />
         </Form.Item>
+        <Form.Item name="medicines" label="Medicines">
+          <Input.TextArea />
+        </Form.Item>
         <Form.Item name="date_of_birth" label="Date of Birth" {...config}>
           <DatePicker format={dateFormat} />
         </Form.Item>

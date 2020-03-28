@@ -11,6 +11,7 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import Login from "./components/auth/SignIn";
 import EditPatient from "./components/doctor/EditPatient";
 import Demo_form from "./components/doctor/editform";
+import PatientModal from "./components/doctor/PatientModal";
 
 function App(props) {
   console.log("broooooooo", props);
@@ -23,6 +24,7 @@ function App(props) {
         <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
         <Route path="/signin" component={SignIn} />
+        <Route path="/patientlist/modal" component={PatientModal} />
         <PrivateRoute
           path="/demo/:id"
           component={Demo_form}

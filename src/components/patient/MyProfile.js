@@ -32,6 +32,10 @@ const MyProfile = props => {
           <strong>Symptoms : </strong>
           {patients.symptoms}
         </p>
+        <p>
+          <strong>Medicines : </strong>
+          {patients.medicines}
+        </p>
       </Card>
     </div>
   );
