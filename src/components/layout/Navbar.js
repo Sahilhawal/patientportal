@@ -18,7 +18,7 @@ const Navbar = props => {
       <Header>
         <div className="logo" />
         <a href="#">Patient Portal</a>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["4"]}>
           {props.auth.domain === "doctor" ? (
             <Menu.Item key="3">
               <Link to="/create">Create Patient</Link>

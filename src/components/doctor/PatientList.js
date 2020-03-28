@@ -55,7 +55,7 @@ class PatientList extends React.Component {
     this.props.delete_patient(event.target.id);
   };
   handleEdit = event => {
-    this.props.history.push("/demo/" + event.target.id);
+    this.props.history.push("/edit/" + event.target.id);
   };
   render() {
     console.log("lsit", this.props);
@@ -88,9 +88,6 @@ class PatientList extends React.Component {
             </List.Item>
           )}
         />
-        <Button type="primary" onClick={this.showModal}>
-          Open Modal
-        </Button>
         <Modal
           title="Basic Modal"
           visible={this.state.visible}
