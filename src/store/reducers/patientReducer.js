@@ -7,8 +7,10 @@ const initState = {
       email: "Dwight@office.com",
       age: 20,
       gender: "male",
-      date_of_birth: "March 31, 2020",
-      date_of_last_visit: "March 31, 2020"
+      date_of_birth: "2020/03/20",
+      date_of_last_visit: "2020/03/20",
+      symptoms: "Headache",
+      medicines: "Crocin"
     },
     {
       id: "2",
@@ -17,8 +19,10 @@ const initState = {
       email: "James@office.com",
       age: 20,
       gender: "male",
-      date_of_birth: "May 28, 2020",
-      date_of_last_visit: "March 31, 2020"
+      date_of_birth: "2020/03/20",
+      date_of_last_visit: "2020/03/20",
+      symptoms: "Cough",
+      medicines: "Vicks"
     }
   ]
 };
@@ -26,11 +30,17 @@ const initState = {
 const patientReducer = (state = initState, action) => {
   switch (action.type) {
     case "ADD_PATIENT":
-      console.log("Current State", state);
-      console.log("In Users", action);
       return Object.assign({}, state, {
-        patients: [...state.patients, action.data.user]
+        patients: [...state.patients, action.data]
       });
+    case "EDIT_PATIENT":
+      let newPatients = state.patients.map(patients =>
+        action.data.email === patients.email ? action.data : patients
+      );
+      return {
+        ...state,
+        patients: newPatients
+      };
     case "DELETE_PATIENT":
       console.log("DELETE", action);
       let newState = state.patients.filter(patient => {

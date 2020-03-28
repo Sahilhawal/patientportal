@@ -8,6 +8,9 @@ class PatientList extends React.Component {
     console.log();
     this.props.delete_patient(event.target.id);
   };
+  handleEdit = event => {
+    this.props.history.push("/demo/" + event.target.id);
+  };
   render() {
     console.log("lsit", this.props);
     const { patients } = this.props;
@@ -19,7 +22,9 @@ class PatientList extends React.Component {
         renderItem={item => (
           <List.Item
             actions={[
-              <a key="list-loadmore-edit">View/Edit</a>,
+              <a id={item.email} onClick={this.handleEdit}>
+                > View/Edit
+              </a>,
               <a id={item.email} onClick={this.handleDelete}>
                 Delete
               </a>

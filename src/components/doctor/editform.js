@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
 import moment from "moment";
 
 const { Option } = Select;
-
 const layout = {
   labelCol: {
     span: 8
@@ -13,55 +12,49 @@ const layout = {
     span: 16
   }
 };
-const validateMessages = {
-  required: "This field is required!",
-  types: {
-    email: "Not a validate email!",
-    number: "Not a validate number!"
-  },
-  number: {
-    range: "Must be between"
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16
   }
 };
 const dateFormat = "YYYY/MM/DD";
 
-const CreatePatient = props => {
+const Demo_form = props => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (props.patients) {
+      form.setFieldsValue({
+        name: props.patients.name,
+        email: props.patients.email,
+        age: props.patients.age,
+        gender: props.patients.gender,
+        date_of_birth: moment(props.patients.date_of_birth),
+        date_of_last_visit: moment(props.patients.date_of_last_visit),
+        symptoms: props.patients.symptoms,
+        medicines: props.patients.medicines
+      });
+    }
+  });
+
   const onFinish = values => {
-    console.log(values.date_of_birth.format("YYYY/MM/DD"));
+    console.log("Values of form", values);
     values.date_of_birth = values.date_of_birth.format("YYYY/MM/DD");
     values.date_of_last_visit = values.date_of_last_visit.format("YYYY/MM/DD");
-    console.log(values);
-    props.add_patient(values);
+    values.id = props.patients.id;
+    props.edit_patient(values);
     props.history.push("/patientlist");
-  };
-
-  const onGenderChange = value => {
-    switch (value) {
-      case "male":
-        form.setFieldsValue({ note: "Hi, man!" });
-        return;
-      case "female":
-        form.setFieldsValue({ note: "Hi, lady!" });
-        return;
-      case "other":
-        form.setFieldsValue({ note: "Hi there!" });
-        return;
-    }
   };
 
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
   };
+
   return (
     <div className="container">
-      <h1>Create Patient</h1>
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-        validateMessages={validateMessages}
-      >
+      <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
         <Form.Item
           name="name"
           label="Name"
@@ -74,25 +67,14 @@ const CreatePatient = props => {
           <Input />
         </Form.Item>
         <Form.Item name="email" label="Email" rules={[{ type: "email" }]}>
-          <Input />
+          <Input disabled />
         </Form.Item>
-        <Form.Item
-          name="age"
-          label="Age"
-          rules={[
-            {
-              type: "number",
-              min: 0,
-              max: 99
-            }
-          ]}
-        >
-          <InputNumber />
+        <Form.Item name="age" label="Age">
+          <Input type="number" min={1} max={100} />
         </Form.Item>
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
           <Select
             placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
             allowClear
           >
             <Option value="male">male</Option>
@@ -101,6 +83,9 @@ const CreatePatient = props => {
           </Select>
         </Form.Item>
         <Form.Item name="symptoms" label="Symptoms">
+          <Input.TextArea />
+        </Form.Item>
+        <Form.Item name="medicines" label="Medicines">
           <Input.TextArea />
         </Form.Item>
         <Form.Item name="date_of_birth" label="Date of Birth" {...config}>
@@ -117,6 +102,28 @@ const CreatePatient = props => {
             Submit
           </Button>
         </Form.Item>
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) =>
+            prevValues.gender !== currentValues.gender
+          }
+        >
+          {({ getFieldValue }) =>
+            getFieldValue("gender") === "other" ? (
+              <Form.Item
+                name="customizeGender"
+                label="Customize Gender"
+                rules={[
+                  {
+                    required: true
+                  }
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            ) : null
+          }
+        </Form.Item>
       </Form>
     </div>
   );
@@ -124,11 +131,18 @@ const CreatePatient = props => {
 
 const mapPropsToState = dispatch => {
   return {
-    add_patient: data => {
-      data.id = Math.random();
-      dispatch({ type: "ADD_PATIENT", data: data });
+    edit_patient: data => {
+      dispatch({ type: "EDIT_PATIENT", data: data });
     }
   };
 };
+const mapStateToProps = (state, ownProps) => {
+  //console.log(state, ownProps);
+  console.log("mapStateToProps", ownProps.match.params.id);
+  const id = ownProps.match.params.id;
+  return {
+    patients: state.patients.patients.find(patient => patient.email === id)
+  };
+};
 
-export default connect(null, mapPropsToState)(CreatePatient);
+export default connect(mapStateToProps, mapPropsToState)(Demo_form);

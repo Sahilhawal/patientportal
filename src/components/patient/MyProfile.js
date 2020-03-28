@@ -8,14 +8,30 @@ const MyProfile = props => {
   console.log(patients);
   return (
     <div className="container">
-      <Card
-        title={patients.name}
-        extra={<a href="#">More</a>}
-        style={{ width: 300 }}
-      >
-        <p>{patients.age}</p>
-        <p>{patients.email}</p>
-        <p>{patients.domain}</p>
+      <Card title={patients.name} style={{ width: 300 }}>
+        <p>
+          <strong>Age: </strong>
+          {patients.age}
+        </p>
+        <p>
+          <strong>Email: </strong>
+          {patients.email}
+        </p>
+        <p>
+          <strong>Gender: </strong>
+          {patients.gender}
+        </p>
+        <p>
+          <strong>DOB: </strong> {patients.date_of_birth}
+        </p>
+        <p>
+          <strong>Last Visited: </strong>
+          {patients.date_of_last_visit}
+        </p>
+        <p>
+          <strong>Symptoms : </strong>
+          {patients.symptoms}
+        </p>
       </Card>
     </div>
   );
