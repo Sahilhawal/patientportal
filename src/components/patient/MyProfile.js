@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { Card } from "antd";
 
 const MyProfile = props => {
-  console.log(props);
   const { patients } = props;
-  console.log(patients);
   return (
     <div className="container">
       <Card title={patients.name} style={{ width: 300 }}>
@@ -30,7 +28,7 @@ const MyProfile = props => {
         </p>
         <p>
           <strong>Symptoms : </strong>
-          {patients.symptoms}
+          {patients.symptoms.map(a => a.value).toString()}
         </p>
         <p>
           <strong>Medicines : </strong>

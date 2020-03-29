@@ -36,6 +36,7 @@ class PatientList extends React.Component {
     });
     console.log(modalData[0].name);
     console.log("state", this.state);
+    console.log("onono", modalData[0].symptoms[0].value);
   };
   handleOk = e => {
     console.log(e);
@@ -58,7 +59,7 @@ class PatientList extends React.Component {
     this.props.history.push("/edit/" + event.target.id);
   };
   render() {
-    console.log("lsit", this.props);
+    const symptoms = [...this.state.symptoms];
     const { patients } = this.props;
     return (
       <div>
@@ -119,7 +120,7 @@ class PatientList extends React.Component {
           </p>
           <p>
             <strong>Symptoms : </strong>
-            {this.state.symptoms}
+            {symptoms.map(a => a.value).toString()}
           </p>
           <p>
             <strong>Medicines : </strong>
