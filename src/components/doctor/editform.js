@@ -65,6 +65,25 @@ const Demo_form = props => {
     setFields(values);
   }
 
+  function handleMedChange(i, event) {
+    const values = [...fields];
+    values[i].meds = event.target.value;
+    setFields(values);
+    console.log("fields", fields);
+  }
+
+  function handleMedAdd() {
+    const values = [...fields];
+    values.push({ meds: null });
+    setFields(values);
+  }
+
+  function handleMedRemove(i) {
+    const values = [...fields];
+    values.splice(i, 1);
+    setFields(values);
+  }
+
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
   };
@@ -128,7 +147,30 @@ const Demo_form = props => {
           })}
         </Form.Item>
         <Form.Item name="medicines" label="Medicines">
-          <Input.TextArea />
+          <Button
+            type="primary"
+            style={{ margin: "0px 0px 20px 5px" }}
+            onClick={() => handleMedAdd()}
+            shape="circle"
+          >
+            +
+          </Button>
+
+          {fields.map((field, idx) => {
+            return (
+              <Form.Item>
+                <div key={`${field}-${idx}`}>
+                  <Search
+                    onChange={e => handleMedChange(idx, e)}
+                    placeholder="input search text"
+                    onSearch={() => handleMedRemove(idx)}
+                    enterButton="X"
+                    style={{ width: 200 }}
+                  />
+                </div>
+              </Form.Item>
+            );
+          })}
         </Form.Item>
         <Form.Item name="date_of_birth" label="Date of Birth" {...config}>
           <DatePicker format={dateFormat} />

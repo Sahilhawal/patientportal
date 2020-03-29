@@ -10,7 +10,7 @@ const initState = {
       date_of_birth: "2020/03/20",
       date_of_last_visit: "2020/03/20",
       symptoms: [{ value: "cough" }, { value: "headache" }],
-      medicines: "Crocin"
+      medicines: [{ meds: "cough" }]
     },
     {
       id: "2",
@@ -22,7 +22,7 @@ const initState = {
       date_of_birth: "2020/03/20",
       date_of_last_visit: "2020/03/20",
       symptoms: [{ value: "headache" }, { value: "cough" }],
-      medicines: "Vicks"
+      medicines: [{ meds: "dsdsds" }, { meds: "dsdsds" }]
     }
   ]
 };

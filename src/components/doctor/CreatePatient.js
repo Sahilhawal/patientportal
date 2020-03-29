@@ -35,11 +35,11 @@ const CreatePatient = props => {
     );
     console.log(
       "dssdcsdsdcdsc",
-      fields.map(field => field.value)
+      fields.filter(field => field.value)
     );
-    valuesToPass.symptoms = fields.map(field => field.value);
+    valuesToPass.symptoms = fields;
 
-    valuesToPass.meds = fields.map(field => field.meds);
+    //valuesToPass.meds = fields.filter(field => field.meds);
 
     console.log("valuesToPass", valuesToPass);
     props.add_patient(valuesToPass);
@@ -102,7 +102,7 @@ const CreatePatient = props => {
           label="Name"
           rules={[
             {
-              required: true
+              required: false
             }
           ]}
         >
@@ -124,7 +124,7 @@ const CreatePatient = props => {
         >
           <InputNumber />
         </Form.Item>
-        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+        <Form.Item name="gender" label="Gender" rules={[{ required: false }]}>
           <Select
             placeholder="Select a option and change input text above"
             allowClear
