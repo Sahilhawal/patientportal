@@ -7,9 +7,7 @@ import userAuth from "../auth/user_auth";
 const { Header } = Layout;
 
 const Navbar = props => {
-  console.log(props);
   const handlieSignOut = () => {
-    console.log("sign out", props);
     props.user_logout();
   };
 
@@ -49,7 +47,6 @@ const Navbar = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state.auth.user_session);
   return {
     auth: state.auth
   };
@@ -58,7 +55,6 @@ const mapStateToProps = state => {
 const mapPropsToState = dispatch => {
   return {
     user_logout: data => {
-      console.log("data", data);
       dispatch({ type: "USER_LOGOUT", data: data });
     }
   };

@@ -22,10 +22,9 @@ const tailLayout = {
 const dateFormat = "YYYY/MM/DD";
 
 const Demo_form = props => {
+  const [fields, setFields] = useState([{ value: null }]);
   const [form] = Form.useForm();
-  console.log("-----------------------------------------------");
   useEffect(() => {
-    // Update the document title using the browser API
     if (props.patients) {
       form.setFieldsValue({
         name: props.patients.name,
@@ -36,14 +35,10 @@ const Demo_form = props => {
         date_of_last_visit: moment(props.patients.date_of_last_visit),
         medicines: props.patients.medicines
       });
-      console.log("props", props.patients.symptoms);
-      //const values = props.patients.symptoms;
-      //values.push(values);
       setFields(props.patients.symptoms);
     }
   }, []);
   const onFinish = values => {
-    console.log("Values of form", values);
     values.date_of_birth = values.date_of_birth.format("YYYY/MM/DD");
     values.date_of_last_visit = values.date_of_last_visit.format("YYYY/MM/DD");
     values.id = props.patients.id;
@@ -51,9 +46,6 @@ const Demo_form = props => {
     props.edit_patient(values);
     props.history.push("/patientlist");
   };
-
-  const [fields, setFields] = useState([{ value: null }]);
-  console.log("fjndiodn", fields);
 
   function handleChange(i, event) {
     const values = [...fields];
@@ -76,7 +68,6 @@ const Demo_form = props => {
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
   };
-  //setFields(props.patients.symptoms);
 
   return (
     <div className="container">
@@ -188,8 +179,6 @@ const mapPropsToState = dispatch => {
   };
 };
 const mapStateToProps = (state, ownProps) => {
-  //console.log(state, ownProps);
-  console.log("mapStateToProps", ownProps.match.params.id);
   const id = ownProps.match.params.id;
   return {
     patients: state.patients.patients.find(patient => patient.email === id)

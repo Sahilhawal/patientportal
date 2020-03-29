@@ -16,10 +16,6 @@ class PatientList extends React.Component {
   };
 
   showModal = event => {
-    console.log(
-      "props",
-      this.props.patients.filter(patient => patient.email == event.target.id)
-    );
     const modalData = this.props.patients.filter(
       patient => patient.email == event.target.id
     );
@@ -34,25 +30,19 @@ class PatientList extends React.Component {
       symptoms: modalData[0].symptoms,
       medicines: modalData[0].medicines
     });
-    console.log(modalData[0].name);
-    console.log("state", this.state);
-    console.log("onono", modalData[0].symptoms[0].value);
   };
   handleOk = e => {
-    console.log(e);
     this.setState({
       visible: false
     });
   };
 
   handleCancel = e => {
-    console.log(e);
     this.setState({
       visible: false
     });
   };
   handleDelete = event => {
-    console.log(event.target.id);
     this.props.delete_patient(event.target.id);
   };
   handleEdit = event => {

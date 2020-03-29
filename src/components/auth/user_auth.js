@@ -10,6 +10,7 @@ const userAuth = {
   signout(user, cb) {
     this.isAuthenticated = false;
     this.domain = "";
+    this.id = "";
     setTimeout(cb, 100);
   }
 };

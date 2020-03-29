@@ -3,17 +3,15 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect,
-  withRouter
+  Redirect
 } from "react-router-dom";
-import userAuth from "./user_auth";
 
 const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
       auth.isLoggedIn === true && auth.domain === "doctor" ? (
-        <Component {...props} />  
+        <Component {...props} />
       ) : (
         <Redirect
           to={{

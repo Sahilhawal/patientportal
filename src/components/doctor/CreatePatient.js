@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
-import moment from "moment";
+
 const { Search } = Input;
-
 const { Option } = Select;
-
 const layout = {
   labelCol: {
     span: 8
@@ -37,10 +35,8 @@ const CreatePatient = props => {
       "YYYY/MM/DD"
     );
     valuesToPass.symptoms = fields;
-    console.log("valuesToPass", valuesToPass);
     props.add_patient(valuesToPass);
-    //props.history.push("/patientlist");
-    console.log(fields);
+    props.history.push("/patientlist");
   };
 
   const [fields, setFields] = useState([{ value: null }]);
@@ -62,20 +58,6 @@ const CreatePatient = props => {
     values.splice(i, 1);
     setFields(values);
   }
-
-  const onGenderChange = value => {
-    switch (value) {
-      case "male":
-        form.setFieldsValue({ note: "Hi, man!" });
-        return;
-      case "female":
-        form.setFieldsValue({ note: "Hi, lady!" });
-        return;
-      case "other":
-        form.setFieldsValue({ note: "Hi there!" });
-        return;
-    }
-  };
 
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
@@ -119,7 +101,6 @@ const CreatePatient = props => {
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
           <Select
             placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
             allowClear
           >
             <Option value="male">male</Option>

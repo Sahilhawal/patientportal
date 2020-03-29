@@ -30,7 +30,6 @@ const initState = {
 const patientReducer = (state = initState, action) => {
   switch (action.type) {
     case "ADD_PATIENT":
-      console.log(action, state);
       return Object.assign({}, state, {
         patients: [...state.patients, action.data]
       });
@@ -43,11 +42,9 @@ const patientReducer = (state = initState, action) => {
         patients: newPatients
       };
     case "DELETE_PATIENT":
-      console.log("DELETE", action);
       let newState = state.patients.filter(patient => {
         return patient.email !== action.data;
       });
-      console.log(newState);
       return {
         ...state,
         patients: newState

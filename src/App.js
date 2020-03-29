@@ -2,20 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
-//import PatientDetails from "./components/projects/PatienttDetails";
 import SignIn from "./components/auth/SignIn";
 import CreatePatient from "./components/doctor/CreatePatient";
 import PatientList from "./components/doctor/PatientList";
 import MyProfile from "./components/patient/MyProfile";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Login from "./components/auth/SignIn";
-import EditPatient from "./components/doctor/EditPatient";
 import Demo_form from "./components/doctor/editform";
 import NotFoundPage from "./components/layout/404page";
-import AddButton from "./components/doctor/NewForm";
 
 function App(props) {
-  console.log("broooooooo", props);
   return (
     <BrowserRouter>
       <div className="App">
@@ -48,7 +44,6 @@ function App(props) {
 }
 
 const mapStateToProps = state => {
-  console.log(state.auth.user_session);
   return {
     auth: state.auth
   };

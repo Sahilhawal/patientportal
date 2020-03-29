@@ -7,7 +7,6 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case "USER_LOGIN":
-      console.log("USER_LOGIN", action);
       return {
         ...state,
         isLoggedIn: true,
@@ -15,7 +14,6 @@ const authReducer = (state = initialState, action) => {
         id: action.data.id
       };
     case "USER_LOGOUT":
-      console.log("USER_LOGOUT", action);
       return {
         ...state,
         isLoggedIn: false,

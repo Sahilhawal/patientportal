@@ -40,7 +40,6 @@ const MyProfile = props => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  //console.log(state, ownProps);
   const id = ownProps.match.params.id;
   return {
     patients: state.patients.patients.find(patient => patient.id === id)
