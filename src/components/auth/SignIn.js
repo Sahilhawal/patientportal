@@ -1,23 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Input, Button, Alert, notification } from "antd";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from "react-router-dom";
+import { Form, Input, Button, notification } from "antd";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import userAuth from "./user_auth";
-import PatientList from "../doctor/PatientList";
 
 const openNotification = (title, msg) => {
   notification.open({
     message: title,
-    description: msg,
-    onClick: () => {
-      console.log("Notification Clicked!");
-    }
+    description: msg
   });
 };
 
@@ -75,7 +65,6 @@ class Login extends React.Component {
     });
     if (!user_logging_in) {
       openNotification("Error", "User does not exist!");
-      //alert("User does not exist!");
       return false;
     }
     if (user_logging_in.password === values.password) {
@@ -111,12 +100,13 @@ class Login extends React.Component {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label="Username"
+            label="Email ID"
             name="username"
             rules={[
               {
+                type: "email",
                 required: true,
-                message: "Please input your username!"
+                message: "Please input your email id!"
               }
             ]}
           >
@@ -148,7 +138,6 @@ class Login extends React.Component {
 const mapPropsToState = dispatch => {
   return {
     user_login: data => {
-      console.log("data", data);
       dispatch({ type: "USER_LOGIN", data: data });
     }
   };

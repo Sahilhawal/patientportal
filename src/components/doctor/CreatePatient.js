@@ -39,10 +39,6 @@ const CreatePatient = props => {
     );
     valuesToPass.symptoms = fields;
     valuesToPass.medicines = meds;
-
-    //valuesToPass.meds = fields.filter(field => field.meds);
-
-    console.log("valuesToPass", valuesToPass);
     props.add_patient(valuesToPass);
     props.history.push("/patientlist");
   };
@@ -129,10 +125,7 @@ const CreatePatient = props => {
           <InputNumber />
         </Form.Item>
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-          >
+          <Select allowClear>
             <Option value="male">male</Option>
             <Option value="female">female</Option>
             <Option value="other">other</Option>
@@ -153,7 +146,6 @@ const CreatePatient = props => {
                 <div key={`${field}-${idx}`}>
                   <Search
                     onChange={e => handleChange(idx, e)}
-                    placeholder="input search text"
                     onSearch={() => handleRemove(idx)}
                     enterButton="X"
                     style={{ width: 200 }}
@@ -179,7 +171,6 @@ const CreatePatient = props => {
                 <div key={`${field}-${idx}`}>
                   <Search
                     onChange={e => handleMedChange(idx, e)}
-                    placeholder="input search text"
                     onSearch={() => handleMedRemove(idx)}
                     enterButton="X"
                     style={{ width: 200 }}

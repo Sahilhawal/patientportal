@@ -71,7 +71,6 @@ const Demo_form = props => {
     const values = [...meds];
     values[i].meds = event.target.value;
     setMeds(values);
-    console.log("fields", fields);
   }
 
   function handleMedAdd() {
