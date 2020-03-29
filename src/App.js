@@ -23,11 +23,8 @@ function App(props) {
       </div>
       <Switch>
         <Route exact path="/" component={Login} />
-        <Route exact path="/addbutton" component={AddButton} />
-
         <Route path="/login" component={Login} />
         <Route path="/signin" component={SignIn} />
-
         <PrivateRoute
           path="/edit/:id"
           component={Demo_form}
@@ -36,11 +33,6 @@ function App(props) {
         <PrivateRoute
           path="/create"
           component={CreatePatient}
-          auth={props.auth}
-        />
-        <Route
-          path="/editpatient/:id"
-          component={EditPatient}
           auth={props.auth}
         />
         <PrivateRoute

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
 import moment from "moment";
 
+const { Search } = Input;
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -108,21 +109,29 @@ const Demo_form = props => {
           </Select>
         </Form.Item>
         <Form.Item name="symptoms" label="Symptoms">
-          <Button type="primary" onClick={() => handleAdd()}>
+          <Button
+            type="primary"
+            style={{ margin: "0px 0px 20px 5px" }}
+            onClick={() => handleAdd()}
+            shape="circle"
+          >
             +
           </Button>
           {fields.map((field, idx) => {
             return (
               <div key={`${field}-${idx}`}>
-                <Input
-                  type="text"
-                  placeholder="Enter text"
-                  value={field.value || ""}
-                  onChange={e => handleChange(idx, e)}
-                />
-                <Button type="primary" onClick={() => handleRemove(idx)}>
-                  X
-                </Button>
+                <Form.Item>
+                  <div key={`${field}-${idx}`}>
+                    <Search
+                      onChange={e => handleChange(idx, e)}
+                      placeholder="Add new symptoms"
+                      onSearch={() => handleRemove(idx)}
+                      value={field.value || ""}
+                      enterButton="X"
+                      style={{ width: 200 }}
+                    />
+                  </div>
+                </Form.Item>
               </div>
             );
           })}
