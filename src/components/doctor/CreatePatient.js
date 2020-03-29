@@ -143,9 +143,7 @@ const CreatePatient = props => {
           >
             +
           </Button>
-
           {fields.map((field, idx) => {
-            field.meds;
             return (
               <Form.Item>
                 <div key={`${field}-${idx}`}>
@@ -171,22 +169,20 @@ const CreatePatient = props => {
             +
           </Button>
 
-          {fields.filter((field, idx) => {
-            if (field.meds) {
-              return (
-                <Form.Item>
-                  <div key={`${field}-${idx}`}>
-                    <Search
-                      onChange={e => handleMedChange(idx, e)}
-                      placeholder="input search text"
-                      onSearch={() => handleMedRemove(idx)}
-                      enterButton="X"
-                      style={{ width: 200 }}
-                    />
-                  </div>
-                </Form.Item>
-              );
-            }
+          {fields.map((field, idx) => {
+            return (
+              <Form.Item>
+                <div key={`${field}-${idx}`}>
+                  <Search
+                    onChange={e => handleMedChange(idx, e)}
+                    placeholder="input search text"
+                    onSearch={() => handleMedRemove(idx)}
+                    enterButton="X"
+                    style={{ width: 200 }}
+                  />
+                </div>
+              </Form.Item>
+            );
           })}
         </Form.Item>
         <Form.Item name="medicines" label="Medicines">
