@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
 import moment from "moment";
@@ -27,14 +27,40 @@ const dateFormat = "YYYY/MM/DD";
 
 const CreatePatient = props => {
   const [form] = Form.useForm();
-  const onFinish = values => {
-    console.log(values.date_of_birth.format("YYYY/MM/DD"));
-    values.date_of_birth = values.date_of_birth.format("YYYY/MM/DD");
-    values.date_of_last_visit = values.date_of_last_visit.format("YYYY/MM/DD");
-    console.log(values);
-    props.add_patient(values);
-    props.history.push("/patientlist");
+  const onFinish = valuesToPass => {
+    console.log(valuesToPass.date_of_birth.format("YYYY/MM/DD"));
+    valuesToPass.date_of_birth = valuesToPass.date_of_birth.format(
+      "YYYY/MM/DD"
+    );
+    valuesToPass.date_of_last_visit = valuesToPass.date_of_last_visit.format(
+      "YYYY/MM/DD"
+    );
+    valuesToPass.symptoms = fields;
+    console.log("valuesToPass", valuesToPass);
+    props.add_patient(valuesToPass);
+    //props.history.push("/patientlist");
+    console.log(fields);
   };
+
+  const [fields, setFields] = useState([{ value: null }]);
+
+  function handleChange(i, event) {
+    const values = [...fields];
+    values[i].value = event.target.value;
+    setFields(values);
+  }
+
+  function handleAdd() {
+    const values = [...fields];
+    values.push({ value: null });
+    setFields(values);
+  }
+
+  function handleRemove(i) {
+    const values = [...fields];
+    values.splice(i, 1);
+    setFields(values);
+  }
 
   const onGenderChange = value => {
     switch (value) {
@@ -101,7 +127,25 @@ const CreatePatient = props => {
           </Select>
         </Form.Item>
         <Form.Item name="symptoms" label="Symptoms">
-          <Input.TextArea />
+          <Button type="primary" onClick={() => handleAdd()}>
+            +
+          </Button>
+
+          {fields.map((field, idx) => {
+            return (
+              <div key={`${field}-${idx}`}>
+                <Input
+                  type="text"
+                  placeholder="Enter text"
+                  value={field.value || ""}
+                  onChange={e => handleChange(idx, e)}
+                />
+                <Button type="primary" onClick={() => handleRemove(idx)}>
+                  X
+                </Button>
+              </div>
+            );
+          })}
         </Form.Item>
         <Form.Item name="medicines" label="Medicines">
           <Input.TextArea />

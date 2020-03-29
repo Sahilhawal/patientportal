@@ -9,7 +9,7 @@ const initState = {
       gender: "male",
       date_of_birth: "2020/03/20",
       date_of_last_visit: "2020/03/20",
-      symptoms: "Headache",
+      symptoms: [{ value: "cough" }, { value: "headache" }],
       medicines: "Crocin"
     },
     {
@@ -21,7 +21,7 @@ const initState = {
       gender: "male",
       date_of_birth: "2020/03/20",
       date_of_last_visit: "2020/03/20",
-      symptoms: "Cough",
+      symptoms: [{ value: "headache" }, { value: "cough" }],
       medicines: "Vicks"
     }
   ]
@@ -30,6 +30,7 @@ const initState = {
 const patientReducer = (state = initState, action) => {
   switch (action.type) {
     case "ADD_PATIENT":
+      console.log(action, state);
       return Object.assign({}, state, {
         patients: [...state.patients, action.data]
       });

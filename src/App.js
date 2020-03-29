@@ -12,6 +12,7 @@ import Login from "./components/auth/SignIn";
 import EditPatient from "./components/doctor/EditPatient";
 import Demo_form from "./components/doctor/editform";
 import NotFoundPage from "./components/layout/404page";
+import AddButton from "./components/doctor/NewForm";
 
 function App(props) {
   console.log("broooooooo", props);
@@ -22,6 +23,8 @@ function App(props) {
       </div>
       <Switch>
         <Route exact path="/" component={Login} />
+        <Route exact path="/addbutton" component={AddButton} />
+
         <Route path="/login" component={Login} />
         <Route path="/signin" component={SignIn} />
 

@@ -33,9 +33,11 @@ const Demo_form = props => {
         gender: props.patients.gender,
         date_of_birth: moment(props.patients.date_of_birth),
         date_of_last_visit: moment(props.patients.date_of_last_visit),
-        symptoms: props.patients.symptoms,
         medicines: props.patients.medicines
       });
+      // const symptoms = props.patients.symptoms;
+      console.log("props", props.patients.symptoms);
+      setFields(props.patients.symptoms);
     }
   });
 
@@ -47,6 +49,26 @@ const Demo_form = props => {
     props.edit_patient(values);
     props.history.push("/patientlist");
   };
+
+  const [fields, setFields] = useState([{ value: null }]);
+
+  function handleChange(i, event) {
+    const values = [...fields];
+    values[i].value = event.target.value;
+    setFields(values);
+  }
+
+  function handleAdd() {
+    const values = [...fields];
+    values.push({ value: null });
+    setFields(values);
+  }
+
+  function handleRemove(i) {
+    const values = [...fields];
+    values.splice(i, 1);
+    setFields(values);
+  }
 
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
@@ -83,7 +105,25 @@ const Demo_form = props => {
           </Select>
         </Form.Item>
         <Form.Item name="symptoms" label="Symptoms">
-          <Input.TextArea />
+          <Button type="primary" onClick={() => handleAdd()}>
+            +
+          </Button>
+
+          {fields.map((field, idx) => {
+            return (
+              <div key={`${field}-${idx}`}>
+                <Input
+                  type="text"
+                  placeholder="Enter text"
+                  value={field.value || ""}
+                  onChange={e => handleChange(idx, e)}
+                />
+                <Button type="primary" onClick={() => handleRemove(idx)}>
+                  X
+                </Button>
+              </div>
+            );
+          })}
         </Form.Item>
         <Form.Item name="medicines" label="Medicines">
           <Input.TextArea />
