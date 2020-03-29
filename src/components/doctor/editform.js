@@ -22,7 +22,7 @@ const dateFormat = "YYYY/MM/DD";
 
 const Demo_form = props => {
   const [form] = Form.useForm();
-
+  console.log("-----------------------------------------------");
   useEffect(() => {
     // Update the document title using the browser API
     if (props.patients) {
@@ -35,22 +35,24 @@ const Demo_form = props => {
         date_of_last_visit: moment(props.patients.date_of_last_visit),
         medicines: props.patients.medicines
       });
-      // const symptoms = props.patients.symptoms;
       console.log("props", props.patients.symptoms);
+      //const values = props.patients.symptoms;
+      //values.push(values);
       setFields(props.patients.symptoms);
     }
-  });
-
+  }, []);
   const onFinish = values => {
     console.log("Values of form", values);
     values.date_of_birth = values.date_of_birth.format("YYYY/MM/DD");
     values.date_of_last_visit = values.date_of_last_visit.format("YYYY/MM/DD");
     values.id = props.patients.id;
+    values.symptoms = fields;
     props.edit_patient(values);
     props.history.push("/patientlist");
   };
 
   const [fields, setFields] = useState([{ value: null }]);
+  console.log("fjndiodn", fields);
 
   function handleChange(i, event) {
     const values = [...fields];
@@ -73,6 +75,7 @@ const Demo_form = props => {
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
   };
+  //setFields(props.patients.symptoms);
 
   return (
     <div className="container">
@@ -108,7 +111,6 @@ const Demo_form = props => {
           <Button type="primary" onClick={() => handleAdd()}>
             +
           </Button>
-
           {fields.map((field, idx) => {
             return (
               <div key={`${field}-${idx}`}>
