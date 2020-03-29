@@ -50,6 +50,7 @@ class PatientList extends React.Component {
   };
   render() {
     const symptoms = [...this.state.symptoms];
+    const medicines = [...this.state.medicines];
     const { patients } = this.props;
     return (
       <div>
@@ -114,7 +115,7 @@ class PatientList extends React.Component {
           </p>
           <p>
             <strong>Medicines : </strong>
-            {this.state.medicines}
+            {medicines.map(a => a.meds).toString()}
           </p>
         </Modal>
       </div>

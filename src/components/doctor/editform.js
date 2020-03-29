@@ -23,6 +23,7 @@ const dateFormat = "YYYY/MM/DD";
 
 const Demo_form = props => {
   const [fields, setFields] = useState([{ value: null }]);
+  const [meds, setMeds] = useState([{ meds: null }]);
   const [form] = Form.useForm();
   useEffect(() => {
     if (props.patients) {
@@ -32,10 +33,10 @@ const Demo_form = props => {
         age: props.patients.age,
         gender: props.patients.gender,
         date_of_birth: moment(props.patients.date_of_birth),
-        date_of_last_visit: moment(props.patients.date_of_last_visit),
-        medicines: props.patients.medicines
+        date_of_last_visit: moment(props.patients.date_of_last_visit)
       });
       setFields(props.patients.symptoms);
+      setMeds(props.patients.medicines);
     }
   }, []);
   const onFinish = values => {
@@ -43,6 +44,7 @@ const Demo_form = props => {
     values.date_of_last_visit = values.date_of_last_visit.format("YYYY/MM/DD");
     values.id = props.patients.id;
     values.symptoms = fields;
+    values.medicines = meds;
     props.edit_patient(values);
     props.history.push("/patientlist");
   };
@@ -66,22 +68,22 @@ const Demo_form = props => {
   }
 
   function handleMedChange(i, event) {
-    const values = [...fields];
+    const values = [...meds];
     values[i].meds = event.target.value;
-    setFields(values);
+    setMeds(values);
     console.log("fields", fields);
   }
 
   function handleMedAdd() {
-    const values = [...fields];
+    const values = [...meds];
     values.push({ meds: null });
-    setFields(values);
+    setMeds(values);
   }
 
   function handleMedRemove(i) {
-    const values = [...fields];
+    const values = [...meds];
     values.splice(i, 1);
-    setFields(values);
+    setMeds(values);
   }
 
   const config = {
@@ -156,13 +158,14 @@ const Demo_form = props => {
             +
           </Button>
 
-          {fields.map((field, idx) => {
+          {meds.map((field, idx) => {
             return (
               <Form.Item>
                 <div key={`${field}-${idx}`}>
                   <Search
                     onChange={e => handleMedChange(idx, e)}
                     placeholder="input search text"
+                    value={field.meds || ""}
                     onSearch={() => handleMedRemove(idx)}
                     enterButton="X"
                     style={{ width: 200 }}

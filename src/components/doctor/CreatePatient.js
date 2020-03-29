@@ -38,6 +38,7 @@ const CreatePatient = props => {
       fields.filter(field => field.value)
     );
     valuesToPass.symptoms = fields;
+    valuesToPass.medicines = meds;
 
     //valuesToPass.meds = fields.filter(field => field.meds);
 
@@ -47,6 +48,9 @@ const CreatePatient = props => {
   };
 
   const [fields, setFields] = useState([{ value: null }]);
+  const [meds, setMeds] = useState([{ meds: null }]);
+
+  console.log("fields first", fields);
 
   function handleChange(i, event) {
     const values = [...fields];
@@ -67,26 +71,26 @@ const CreatePatient = props => {
   }
 
   function handleMedChange(i, event) {
-    const values = [...fields];
+    const values = [...meds];
     values[i].meds = event.target.value;
-    setFields(values);
+    setMeds(values);
     console.log("fields", fields);
   }
 
   function handleMedAdd() {
-    const values = [...fields];
+    const values = [...meds];
     values.push({ meds: null });
-    setFields(values);
+    setMeds(values);
   }
 
   function handleMedRemove(i) {
-    const values = [...fields];
+    const values = [...meds];
     values.splice(i, 1);
-    setFields(values);
+    setMeds(values);
   }
 
   const config = {
-    rules: [{ type: "object", required: false, message: "Please select time!" }]
+    rules: [{ type: "object", required: true, message: "Please select time!" }]
   };
   return (
     <div className="container">
@@ -102,7 +106,7 @@ const CreatePatient = props => {
           label="Name"
           rules={[
             {
-              required: false
+              required: true
             }
           ]}
         >
@@ -124,7 +128,7 @@ const CreatePatient = props => {
         >
           <InputNumber />
         </Form.Item>
-        <Form.Item name="gender" label="Gender" rules={[{ required: false }]}>
+        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
           <Select
             placeholder="Select a option and change input text above"
             allowClear
@@ -169,7 +173,7 @@ const CreatePatient = props => {
             +
           </Button>
 
-          {fields.map((field, idx) => {
+          {meds.map((field, idx) => {
             return (
               <Form.Item>
                 <div key={`${field}-${idx}`}>
@@ -184,9 +188,6 @@ const CreatePatient = props => {
               </Form.Item>
             );
           })}
-        </Form.Item>
-        <Form.Item name="medicines" label="Medicines">
-          <Input.TextArea />
         </Form.Item>
         <Form.Item name="date_of_birth" label="Date of Birth" {...config}>
           <DatePicker format={dateFormat} />
